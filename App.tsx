@@ -50,8 +50,6 @@ const Section: React.FC<
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
-  console.log('hello from APP');
-
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
