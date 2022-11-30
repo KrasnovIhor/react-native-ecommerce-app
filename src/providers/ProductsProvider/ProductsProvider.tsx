@@ -10,20 +10,25 @@ import { LIST_ALL_PRODUCTS_API } from 'constants';
 
 type ProductsContextType = {
   productsList: Product[];
+  currentProduct: Product | null;
   isLoading: boolean;
   fetchProducts: () => Promise<any>;
+  fetchProductById: (id: string) => Promise<any>;
   isError: boolean;
 };
 
 export const ProductsContext = React.createContext<ProductsContextType>({
   productsList: [],
+  currentProduct: null,
   isLoading: false,
   fetchProducts: async () => {},
+  fetchProductById: async () => {},
   isError: false,
 });
 
 export const ProductsProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [productsList, setProductsList] = useState<Product[]>([]);
+  const [currentProduct, setCurrentProduct] = useState<Product | null>(null);
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState(false);
 
@@ -45,14 +50,41 @@ export const ProductsProvider: React.FC<PropsWithChildren> = ({ children }) => {
     }
   }, []);
 
+  const fetchProductById = useCallback(async (id: string) => {
+    setLoading(true);
+
+    try {
+      const response = await fetch(`${LIST_ALL_PRODUCTS_API}/${id}`);
+      const { data: productData } = await response.json();
+
+      setLoading(false);
+      const [product] = parseProducts([productData]);
+      setCurrentProduct(product);
+
+      return product;
+    } catch {
+      setError(true);
+      setLoading(false);
+    }
+  }, []);
+
   const context: ProductsContextType = useMemo(
     () => ({
       productsList,
       isLoading,
       fetchProducts,
+      fetchProductById,
+      currentProduct,
       isError,
     }),
-    [productsList, isLoading, fetchProducts, isError]
+    [
+      productsList,
+      isLoading,
+      fetchProducts,
+      fetchProductById,
+      currentProduct,
+      isError,
+    ]
   );
 
   return (

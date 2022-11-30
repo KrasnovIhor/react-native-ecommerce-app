@@ -1,0 +1,1 @@
+export { ProductPriceLabel } from './ProductPriceLabel';

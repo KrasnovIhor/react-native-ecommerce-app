@@ -1,18 +1,17 @@
-import { BLACK, NEUTRAL_GRAY } from 'assets/colors';
-import { StyleSheet } from 'react-native';
+import { withTheme } from 'providers/ThemeProvider';
 
-export const styles = StyleSheet.create({
+export const useStyles = withTheme(theme => ({
   input: {
+    ...theme.textStyle,
     paddingHorizontal: 0,
-    color: BLACK,
     minHeight: 34,
   },
   inputContainer: {
-    paddingHorizontal: 14,
+    paddingHorizontal: theme.spaces[2],
     borderWidth: 1,
     borderRadius: 4,
     height: 34,
-    borderColor: NEUTRAL_GRAY,
+    borderColor: theme.colors.gray500,
   },
   leftIcon: {
     marginVertical: 0,
@@ -24,6 +23,6 @@ export const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 0,
     height: 34,
-    zIndex: 5,
+    zIndex: theme.zIndex[1],
   },
-});
+}));

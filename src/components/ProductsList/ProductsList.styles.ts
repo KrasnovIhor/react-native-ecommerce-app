@@ -1,20 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { withTheme } from 'providers/ThemeProvider';
 
-export const styles = StyleSheet.create({
+export const useStyles = withTheme(theme => ({
   container: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'stretch',
+    padding: theme.spaces[1],
   },
   row: {
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   horizontalRow: {
-    paddingHorizontal: 50,
+    paddingHorizontal: theme.spaces[8],
     justifyContent: 'flex-start',
   },
-});
+}));
