@@ -5,44 +5,55 @@ import {
   Text,
 } from '@rneui/themed';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { styles } from './Header.styles';
+import { useStyles } from './Header.styles';
 import { HeaderButton } from './components/HeaderButton';
-import { BLUE, WHITE } from 'assets/colors';
+import { useTheme } from 'providers/ThemeProvider';
 
-type HeaderProps = {
+type HeaderComponents = {
+  Button: typeof HeaderButton;
+};
+
+type HeaderProps = HeaderRNEProps & {
   title?: string;
 };
 
-export const Header: FC<HeaderRNEProps & HeaderProps> = props => {
+export const Header: FC<HeaderProps> & HeaderComponents = props => {
+  const { colors } = useTheme();
+  const styles = useStyles();
+
   const { leftComponent, centerComponent, rightComponent, title } = props;
 
   const left = useMemo(
     () =>
       leftComponent || (
-        <HeaderButton icon={<Icon name="menu" color={WHITE} size={25} />} />
+        <Header.Button
+          icon={<Icon name="menu" color={colors.background} size={25} />}
+        />
       ),
-    [leftComponent]
+    [colors.background, leftComponent]
   );
 
   const center = useMemo(
     () => centerComponent || <Text style={styles.headerCenter}>{title}</Text>,
-    [title, centerComponent]
+    [centerComponent, styles, title]
   );
 
   const right = useMemo(
     () =>
       rightComponent || (
-        <HeaderButton
-          icon={<Icon name="shopping-cart" color={WHITE} size={25} />}
+        <Header.Button
+          icon={
+            <Icon name="shopping-cart" color={colors.background} size={25} />
+          }
         />
       ),
-    [rightComponent]
+    [colors.background, rightComponent]
   );
 
   return (
     <HeaderRNE
       {...(props || {})}
-      backgroundColor={BLUE}
+      backgroundColor={colors.primary}
       containerStyle={styles.headerContainer}
       leftComponent={left}
       centerComponent={center}
@@ -50,3 +61,5 @@ export const Header: FC<HeaderRNEProps & HeaderProps> = props => {
     />
   );
 };
+
+Header.Button = HeaderButton;

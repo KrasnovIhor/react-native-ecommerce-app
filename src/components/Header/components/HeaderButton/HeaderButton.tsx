@@ -10,3 +10,5 @@ type HeaderButtonProps = {
 export const HeaderButton: FC<HeaderButtonProps> = ({ onPress, icon }) => {
   return <TouchableOpacity onPress={onPress}>{icon}</TouchableOpacity>;
 };
+
+HeaderButton.displayName = 'HeaderButton';

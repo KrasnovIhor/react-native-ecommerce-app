@@ -5,9 +5,11 @@ import { Header } from 'components/Header';
 import { ProductsList } from 'components/ProductsList';
 import { SearchBar } from 'components/SearchBar';
 
-import { styles } from './MainScreen.styles';
+import { useStyles } from './MainScreen.styles';
 
 export const MainScreen = () => {
+  const styles = useStyles();
+
   return (
     <View style={styles.container}>
       <Header title="Ecommerce Store" />

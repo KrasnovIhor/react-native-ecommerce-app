@@ -1,19 +1,20 @@
-import { WHITE } from 'assets/colors';
-import { StyleSheet } from 'react-native';
+import { withTheme } from 'providers/ThemeProvider';
 
-export const styles = StyleSheet.create({
-  headerContainer: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
+export const useStyles = withTheme(theme => {
+  return {
+    headerContainer: {
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.3,
+      elevation: 4,
     },
-    shadowOpacity: 0.3,
-    elevation: 4,
-  },
-  headerCenter: {
-    fontSize: 20,
-    color: WHITE,
-    fontWeight: '500',
-  },
+    headerCenter: {
+      fontSize: 20,
+      color: theme.colors.background,
+      fontWeight: '500',
+    },
+  };
 });
