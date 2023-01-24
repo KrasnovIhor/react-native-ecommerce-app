@@ -10,9 +10,11 @@ import { Routes, Stacks } from 'navigation';
 import { useAppSelector } from 'store/hooks';
 import { CartIncluded } from 'types/api';
 import { useStyles } from '../CartScreen.styles';
+import { useTheme } from 'providers/ThemeProvider';
 
 export const useCartScreen = () => {
   const styles = useStyles();
+  const theme = useTheme();
   const { navigate } = useNavigation();
   const { isAuthenticated } = useAppSelector(state => state.auth);
   const [retriveCart, { data, isLoading, isError }] =
@@ -24,6 +26,9 @@ export const useCartScreen = () => {
   }, [navigate]);
   const handleShopNavigate = useCallback(() => {
     navigate(Stacks.PRODUCT, { screen: Routes.MAIN });
+  }, [navigate]);
+  const handleProceedToPayment = useCallback(() => {
+    navigate(Routes.CART_CONFIRAMTION);
   }, [navigate]);
 
   const lineItems = useMemo(
@@ -88,8 +93,10 @@ export const useCartScreen = () => {
 
   return {
     styles,
+    theme,
     handleLoginNavigate,
     handleShopNavigate,
+    handleProceedToPayment,
     renderCartItem,
     refetch,
     isAuthenticated,

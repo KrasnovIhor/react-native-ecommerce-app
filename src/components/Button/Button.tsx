@@ -4,23 +4,24 @@ import {
   ButtonProps as RNEButtonProps,
 } from '@rneui/themed';
 import { useStyles } from './Button.styles';
-import { View, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 type ButtonProps = RNEButtonProps & {
-  viewStyle?: ViewStyle;
+  viewStyle?: StyleProp<ViewStyle>;
 };
 
 export const Button: React.FC<ButtonProps> = React.memo(props => {
   const styles = useStyles();
 
   return (
-    <View style={[styles.root, props.viewStyle]}>
+    <Animated.View style={[styles.root, props.viewStyle]}>
       <RNEButton
         {...(props || {})}
         containerStyle={[styles.container, props.containerStyle]}
         titleStyle={[styles.title, props.titleStyle]}
         buttonStyle={[styles.button, props.buttonStyle]}
       />
-    </View>
+    </Animated.View>
   );
 });

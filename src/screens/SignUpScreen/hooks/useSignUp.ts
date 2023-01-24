@@ -39,30 +39,38 @@ export const useSignUp = () => {
     return result;
   }, [formValues]);
 
-  const onSubmit = useCallback(async () => {
-    if (checkFields()) {
-      const [first_name, last_name] = formValues.fullName.split(' ');
-      const {
+  const prepareCreateUserPayload = useCallback((values: typeof formValues) => {
+    const [first_name, last_name] = values.fullName.split(' ');
+    const { email, password, confirmPassword: password_confirmation } = values;
+    const body: CreateUserRequest = {
+      user: {
         email,
         password,
-        confirmPassword: password_confirmation,
-      } = formValues;
-      const body: CreateUserRequest = {
-        user: {
-          email,
-          password,
-          first_name,
-          last_name: last_name ?? '',
-          password_confirmation,
-        },
-      };
-      await createAccountMutation(body);
+        first_name,
+        last_name: last_name ?? '',
+        password_confirmation,
+      },
+    };
+
+    return body;
+  }, []);
+
+  const onSubmit = useCallback(async () => {
+    if (checkFields()) {
+      await createAccountMutation(prepareCreateUserPayload(formValues));
 
       if (!isError) {
         navigate(Routes.LOGIN);
       }
     }
-  }, [checkFields, createAccountMutation, formValues, isError, navigate]);
+  }, [
+    checkFields,
+    createAccountMutation,
+    formValues,
+    isError,
+    navigate,
+    prepareCreateUserPayload,
+  ]);
 
   return {
     styles,

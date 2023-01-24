@@ -14,9 +14,11 @@ import { useOrientation } from 'hooks/useOrientation';
 import { useGetProductsQuery } from 'api/modules/products';
 import { useNavigation } from '@react-navigation/native';
 import { Routes, Stacks } from 'navigation';
+import { useTheme } from 'providers/ThemeProvider';
 
 export const ProductsList = () => {
   const styles = useStyles();
+  const theme = useTheme();
   const { data: productsData, refetch, isLoading } = useGetProductsQuery();
   const orientation = useOrientation();
   const numCols = orientation === 'PORTRAIT' ? 2 : 4;
@@ -77,7 +79,12 @@ export const ProductsList = () => {
       keyExtractor={keyExtractor}
       columnWrapperStyle={columnWrapperStyle}
       refreshControl={
-        <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+        <RefreshControl
+          colors={[theme.colors.primary]}
+          tintColor={theme.colors.primary}
+          refreshing={isLoading}
+          onRefresh={refetch}
+        />
       }
     />
   );

@@ -28,6 +28,8 @@ export const useStyles = withTheme(theme => ({
   buttonContainer: {
     ...theme.shadowProps,
     marginBottom: theme.spaces[4],
+    alignSelf: 'center',
+    width: '100%',
   },
   textButtonTitle: {
     fontSize: theme.fontSize[2],

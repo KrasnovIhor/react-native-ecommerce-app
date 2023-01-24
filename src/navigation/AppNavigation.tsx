@@ -10,6 +10,7 @@ import { OrdersScreen } from 'screens/OrdersScreen';
 import { useHeader, useInitAuth } from './hooks';
 import { LoginScreen } from 'screens/LoginScreen';
 import { SignUpScreen } from 'screens/SignUpScreen';
+import { CartConfitmationScreen } from 'screens/CartConfitmationScreen';
 
 export const RootStack = createDrawerNavigator<RootStackParamList>();
 
@@ -63,6 +64,11 @@ export const AppNavigation = () => {
             name={Routes.MY_CART}
             component={CartScreen}
             options={{ headerTitle: 'My Cart', headerRight: emptyComponent }}
+          />
+          <RootStack.Screen
+            name={Routes.CART_CONFIRAMTION}
+            component={CartConfitmationScreen}
+            options={{ headerShown: false }}
           />
           <RootStack.Screen
             name={Routes.MY_ORDERS}

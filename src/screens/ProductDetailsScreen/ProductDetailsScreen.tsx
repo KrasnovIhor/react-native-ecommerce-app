@@ -17,6 +17,7 @@ export const ProductDetailsScreen = () => {
     isLoadingAddToCart,
     currentProduct,
     styles,
+    theme,
     refetch,
     imageItems,
     color,
@@ -33,7 +34,12 @@ export const ProductDetailsScreen = () => {
       return (
         <ScrollView
           refreshControl={
-            <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+            <RefreshControl
+              colors={[theme.colors.primary]}
+              tintColor={theme.colors.primary}
+              refreshing={isLoading}
+              onRefresh={refetch}
+            />
           }
           contentContainerStyle={styles.container}>
           <ProductCarousel width={350} containerStyle={styles.slider}>
@@ -78,12 +84,13 @@ export const ProductDetailsScreen = () => {
   }, [
     isLoading,
     currentProduct,
+    theme,
     refetch,
     styles,
     imageItems,
-    color,
-    isColorSelected,
     toggleSelectedColor,
+    isColorSelected,
+    color,
   ]);
 
   return (

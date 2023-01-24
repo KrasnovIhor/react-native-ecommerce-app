@@ -27,7 +27,7 @@ type Space60_8 = number;
 
 export type Theme = {
   colors: {
-    [key in ListOfColors]?: string;
+    [key in ListOfColors]: string;
   };
   zIndex: [number, number, number, number, number];
   spaces: [
