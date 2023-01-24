@@ -33,11 +33,21 @@ export const DarkTheme: Theme = {
   },
   zIndex: [0, 10, 20, 30, 40],
   spaces: [5, 10, 15, 20, 25, 30, 35, 40, 60],
-  fontSize: [12, 14, 15, 18, 20, 21, 27, 33],
-  lineHeight: [16, 20, 24, 28, 32, 40],
+  fontSize: [12, 14, 15, 18, 20, 21, 27, 33, 40],
+  lineHeight: [16, 20, 24, 28, 32, 40, 50],
   textStyle: {
     color: WHITE,
     fontSize: 15,
     lineHeight: 20,
+  },
+  shadowProps: {
+    shadowColor: GRAY_100,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 4,
   },
 };

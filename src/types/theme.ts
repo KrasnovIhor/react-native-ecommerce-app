@@ -1,4 +1,4 @@
-import { TextStyle } from 'react-native';
+import { TextStyle, ViewStyle } from 'react-native';
 
 export type ListOfColors =
   | 'background'
@@ -44,4 +44,5 @@ export type Theme = {
   fontSize: number[];
   lineHeight: number[];
   textStyle: TextStyle;
+  shadowProps: ViewStyle;
 };

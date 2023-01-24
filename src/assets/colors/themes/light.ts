@@ -31,8 +31,18 @@ export const LightTheme: Theme = {
   },
   zIndex: [0, 10, 20, 30, 40],
   spaces: [5, 10, 15, 20, 25, 30, 35, 40, 60],
-  fontSize: [12, 14, 15, 18, 20, 21, 27, 33],
-  lineHeight: [16, 20, 24, 28, 32, 40],
+  fontSize: [12, 14, 15, 18, 20, 21, 27, 33, 40],
+  lineHeight: [16, 20, 24, 28, 32, 40, 50],
+  shadowProps: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 4,
+  },
   textStyle: {
     color: GRAY_700,
     fontSize: 15,
