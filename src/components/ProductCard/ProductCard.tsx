@@ -24,7 +24,6 @@ export const ProductCard: FC<ProductCardProps> = ({
   onPress,
 }) => {
   const [isOnLoadError, setIsOnLoadError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   const styles = useStyles();
 
@@ -43,19 +42,13 @@ export const ProductCard: FC<ProductCardProps> = ({
   );
 
   const defaultSource = useMemo(() => {
-    if (isLoading) {
-      return require('assets/images/ImageLoader.gif');
-    }
     if (isOnLoadError) {
       return require('assets/images/NoImage.png');
     }
-  }, [isLoading, isOnLoadError]);
+  }, [isOnLoadError]);
 
   const handleOnLoadError = useCallback(() => {
     setIsOnLoadError(true);
-  }, []);
-  const handleOnLoad = useCallback(() => {
-    setIsLoading(false);
   }, []);
 
   return (
@@ -71,7 +64,6 @@ export const ProductCard: FC<ProductCardProps> = ({
             resizeMode={Image.resizeMode.contain}
             style={styles.image}
             onError={handleOnLoadError}
-            onLoad={handleOnLoad}
           />
           <Text style={styles.name}>{productName}</Text>
         </View>

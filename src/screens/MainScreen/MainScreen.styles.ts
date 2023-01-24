@@ -4,6 +4,7 @@ export const useStyles = withTheme((theme, isDark) => {
   return {
     container: {
       flex: 1,
+      backgroundColor: theme.colors.background,
     },
     searchBarContainer: {
       padding: theme.spaces[3],

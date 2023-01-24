@@ -2,3 +2,8 @@ export { default as MenuIcon } from './Menu.svg';
 export { default as MenuWhiteIcon } from './MenuWhite.svg';
 export { default as PrevArrow } from './PrevArrow.svg';
 export { default as NextArrow } from './NextArrow.svg';
+export { default as Confirm } from './Confirm.svg';
+export { default as Warning } from './Warning.svg';
+export { default as Error } from './Error.svg';
+export { default as PersonIcon } from './PersonIcon.svg';
+export { default as CartBox } from './CartBox.svg';

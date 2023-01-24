@@ -1,8 +1,9 @@
 import { TextStyle } from 'react-native';
 import { withTheme } from 'providers/ThemeProvider';
+import { WHITE } from 'assets/colors';
 
 export const useStyles = withTheme(
-  ({ colors, spaces, fontSize, textStyle }) => {
+  ({ colors, spaces, fontSize, textStyle }, isDark) => {
     const headingStyle: TextStyle = {
       ...textStyle,
       fontSize: fontSize[4],
@@ -62,10 +63,18 @@ export const useStyles = withTheme(
       colorButtonText: {
         ...textStyle,
       },
+      activeColorButtonText: {
+        ...textStyle,
+        color: WHITE,
+      },
       colorButton: {
+        backgroundColor: isDark ? colors.gray700 : colors.gray100,
         paddingHorizontal: spaces[1],
         paddingVertical: spaces[0],
         marginRight: spaces[1],
+      },
+      activeColorButton: {
+        backgroundColor: colors.primary,
       },
       descriptionSection: {
         marginTop: spaces[1],

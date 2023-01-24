@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import {
   GestureResponderEvent,
   TouchableOpacity,
@@ -7,6 +7,7 @@ import {
   TextStyle,
   TouchableOpacityProps,
   View,
+  ActivityIndicator,
 } from 'react-native';
 import { useStyles } from './FloatingButton.styles';
 
@@ -16,7 +17,9 @@ type FloatingButtonProps = {
   style?: ViewStyle;
   textStyle?: TextStyle;
   containerStyle?: ViewStyle;
-} & TouchableOpacityProps;
+  loading?: boolean;
+} & TouchableOpacityProps &
+  PropsWithChildren;
 
 export const FloatingButton: FC<FloatingButtonProps> = props => {
   const styles = useStyles();
@@ -25,11 +28,16 @@ export const FloatingButton: FC<FloatingButtonProps> = props => {
   return (
     <View style={[styles.container, containerStyle]}>
       <TouchableOpacity
+        {...(props || {})}
         activeOpacity={0.7}
-        style={[styles.root, styles.shadowProps, style]}
         onPress={onPress}
-        {...(props || {})}>
-        <Text style={[styles.text, textStyle]}>{title}</Text>
+        style={[styles.root, styles.shadowProps, style]}>
+        {props.loading ? (
+          <ActivityIndicator size="small" />
+        ) : (
+          <Text style={[styles.text, textStyle]}>{title}</Text>
+        )}
+        {props.children}
       </TouchableOpacity>
     </View>
   );

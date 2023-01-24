@@ -1,0 +1,1 @@
+export { TotalPriceCard } from './TotalPriceCard';
