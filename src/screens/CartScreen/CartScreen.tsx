@@ -15,8 +15,10 @@ import { ACCENT_GREEN } from 'assets/colors';
 export const CartScreen = () => {
   const {
     styles,
+    theme,
     handleLoginNavigate,
     handleShopNavigate,
+    handleProceedToPayment,
     isAuthenticated,
     data,
     isLoading,
@@ -80,7 +82,12 @@ export const CartScreen = () => {
     <SafeAreaView style={styles.root} edges={['left', 'right', 'bottom']}>
       <ScrollView
         refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+          <RefreshControl
+            colors={[theme.colors.primary]}
+            tintColor={theme.colors.primary}
+            refreshing={isLoading}
+            onRefresh={refetch}
+          />
         }
         contentContainerStyle={styles.scrollView}>
         {lineItems && lineItems.map(lineItem => renderCartItem(lineItem))}
@@ -101,7 +108,10 @@ export const CartScreen = () => {
           </Text>
         </View>
       </ScrollView>
-      <FloatingButton title="PROCEED TO PAYMENT" />
+      <FloatingButton
+        onPress={handleProceedToPayment}
+        title="PROCEED TO PAYMENT"
+      />
     </SafeAreaView>
   );
 };

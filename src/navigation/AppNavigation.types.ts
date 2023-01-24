@@ -6,6 +6,7 @@ export enum Routes {
   MY_PROFILE = 'MyProfile',
   MY_WISH_LIST = 'MyWishList',
   MY_CART = 'MyCart',
+  CART_CONFIRAMTION = 'CartConfirmation',
   MY_ORDERS = 'MyOrders',
   EMAIL = 'Email',
   CALL = 'Call',
@@ -31,6 +32,7 @@ export type RootStackParamList = {
   [Routes.MY_PROFILE]: undefined;
   [Routes.MY_WISH_LIST]: undefined;
   [Routes.MY_CART]: undefined;
+  [Routes.CART_CONFIRAMTION]: undefined;
   [Routes.MY_ORDERS]: undefined;
   [Routes.LOGIN]: undefined;
   [Routes.SIGN_UP]: undefined;

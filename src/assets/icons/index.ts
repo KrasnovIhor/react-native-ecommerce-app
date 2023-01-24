@@ -7,3 +7,4 @@ export { default as Warning } from './Warning.svg';
 export { default as Error } from './Error.svg';
 export { default as PersonIcon } from './PersonIcon.svg';
 export { default as CartBox } from './CartBox.svg';
+export { default as CartBoxConfirm } from './CartBoxConfirm.svg';

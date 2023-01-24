@@ -1,5 +1,3 @@
 // DO NOT COMMIT OR EDIT THIS FILE
 IMAGES_API=https:/$()/picsum.photos
-APP_STOREFRONT_API=https:/$()/demo.spreecommerce.org/api
-APP_TOKEN_API=https:/$()/demo.spreecommerce.org/spree_oauth/token
-LIST_ALL_PRODUCTS_API=https:/$()/demo.spreecommerce.org/api/v2/storefront/products
+API_URL=https:/$()/demo.spreecommerce.org

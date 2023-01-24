@@ -11,8 +11,6 @@ export const useInitAuth = () => {
   const initializeAuth = useCallback(async () => {
     const userToken = await getToken();
 
-    console.log(userToken);
-
     if (userToken) {
       dispatch(authLoad(true));
     } else {

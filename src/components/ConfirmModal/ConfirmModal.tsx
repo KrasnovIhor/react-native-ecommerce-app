@@ -9,12 +9,18 @@ type ConfirmModalProps = {
   title: string;
   subTitle?: string;
   iconType?: 'error' | 'confirm' | 'warning';
+  onClose?: () => void;
+  isVisible?: boolean;
+  fromNavigation?: boolean;
 };
 
 export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   title,
   subTitle,
   iconType,
+  onClose,
+  isVisible = true,
+  fromNavigation = true,
 }) => {
   const { goBack } = useNavigation();
   const styles = useStyles();
@@ -33,7 +39,10 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   }, [iconType]);
 
   return (
-    <Dialog isVisible overlayStyle={styles.root} onBackdropPress={goBack}>
+    <Dialog
+      isVisible={isVisible}
+      overlayStyle={styles.root}
+      onBackdropPress={fromNavigation ? goBack : onClose}>
       {icon}
       <Dialog.Title titleStyle={styles.title} title={title} />
       {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
@@ -43,7 +52,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
             buttonStyle={styles.button}
             titleStyle={styles.buttonTitle}
             title="OK"
-            onPress={goBack}
+            onPress={fromNavigation ? goBack : onClose}
           />
         </View>
       </Dialog.Actions>
