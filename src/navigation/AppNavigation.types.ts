@@ -13,6 +13,7 @@ export enum Routes {
   SHARE = 'Share',
   LOGIN = 'Login',
   SIGN_UP = 'SignUp',
+  SEARCH = 'Search',
 }
 
 export enum Modals {
@@ -41,6 +42,7 @@ export type RootStackParamList = {
 export type ProductStackParamList = {
   [Routes.MAIN]: undefined;
   [Routes.PRODUCT_DETAILS]: { productId: string };
+  [Routes.SEARCH]: undefined;
   [Modals.SELECT_COLOR_MODAL]: undefined;
   [Modals.PRODUCT_ADDED_MODAL]: undefined;
   [Modals.LOGIN_MODAL]: undefined;

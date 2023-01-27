@@ -16,10 +16,18 @@ import { useNavigation } from '@react-navigation/native';
 import { Routes, Stacks } from 'navigation';
 import { useTheme } from 'providers/ThemeProvider';
 
-export const ProductsList = () => {
+type ProductsListProps = {
+  filterName?: string;
+};
+
+export const ProductsList: React.FC<ProductsListProps> = ({ filterName }) => {
   const styles = useStyles();
   const theme = useTheme();
-  const { data: productsData, refetch, isLoading } = useGetProductsQuery();
+  const {
+    data: productsData,
+    refetch,
+    isLoading,
+  } = useGetProductsQuery(filterName);
   const orientation = useOrientation();
   const numCols = orientation === 'PORTRAIT' ? 2 : 4;
   const columnWrapperStyle =
