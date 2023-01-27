@@ -7,22 +7,12 @@ import { useStyles } from 'screens/ProductDetailsScreen/ProductDetailsScreen.sty
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import { DrawerNavigationOptions } from '@react-navigation/drawer';
-import { clearToken } from 'utils';
-import { authLoad } from 'store/auth/authSlice';
-import { useAppDispatch } from 'store/hooks';
 import { Routes } from 'navigation/AppNavigation.types';
 
 export const useHeader = () => {
   const { colors, currentTheme } = useTheme();
   const styles = useStyles();
   const { dispatch, navigate } = useNavigation();
-  const appDispatch = useAppDispatch();
-
-  const tempClear = useCallback(async () => {
-    await clearToken();
-    appDispatch(authLoad(false));
-    console.log('token cleared');
-  }, [appDispatch]);
 
   const handleOnCartPress = useCallback(() => {
     navigate(Routes.MY_CART);
@@ -64,14 +54,14 @@ export const useHeader = () => {
           }
         />
         <Header.Button
-          onPress={tempClear}
+          onPress={handleOnCartPress}
           icon={
             <Icon name="shopping-cart" color={colors.background} size={25} />
           }
         />
       </View>
     ),
-    [colors, styles, tempClear]
+    [colors, styles, handleOnCartPress]
   );
 
   const screenStackOptions: NativeStackNavigationOptions = {

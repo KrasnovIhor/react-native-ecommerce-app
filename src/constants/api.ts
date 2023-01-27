@@ -5,3 +5,4 @@ export const APP_TOKEN_API = `${API_URL}/spree_oauth/token`;
 export const PRODUCTS_URL = '/products';
 export const CART_URL = '/cart';
 export const ACCOUNT_URL = '/account';
+export const ACCOUT_ADDRESS_URL = `${ACCOUNT_URL}/addresses`;
