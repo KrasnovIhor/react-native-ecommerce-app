@@ -7,6 +7,7 @@ export const useStyles = withTheme(theme => ({
   },
   searchBarContainer: {
     padding: theme.spaces[3],
+    position: 'relative',
     backgroundColor: theme.colors.background,
     ...theme.shadowProps,
   },

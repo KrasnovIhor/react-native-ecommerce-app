@@ -14,4 +14,14 @@ export const useStyles = withTheme(theme => ({
   updateButton: {
     marginBottom: theme.spaces[3],
   },
+  avatar: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: theme.spaces[6],
+  },
+  avatarImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+  },
 }));

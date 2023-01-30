@@ -11,23 +11,28 @@ import { useStyles } from './ProductsList.styles';
 import { LoadingScreen } from 'screens/LoadingScreen';
 import { Product } from 'types/products';
 import { useOrientation } from 'hooks/useOrientation';
-import { useGetProductsQuery } from 'api/modules/products';
 import { useNavigation } from '@react-navigation/native';
 import { Routes, Stacks } from 'navigation';
 import { useTheme } from 'providers/ThemeProvider';
 
 type ProductsListProps = {
-  filterName?: string;
+  products?: Product[];
+  onRefresh?: () => void;
+  isLoading: boolean;
 };
 
-export const ProductsList: React.FC<ProductsListProps> = ({ filterName }) => {
+export const ProductsList: React.FC<ProductsListProps> = ({
+  products,
+  onRefresh,
+  isLoading,
+}) => {
   const styles = useStyles();
   const theme = useTheme();
-  const {
-    data: productsData,
-    refetch,
-    isLoading,
-  } = useGetProductsQuery(filterName);
+  // const {
+  //   data: productsData,
+  //   refetch,
+  //   isLoading,
+  // } = useGetProductsQuery(filterName);
   const orientation = useOrientation();
   const numCols = orientation === 'PORTRAIT' ? 2 : 4;
   const columnWrapperStyle =
@@ -73,7 +78,7 @@ export const ProductsList: React.FC<ProductsListProps> = ({ filterName }) => {
     return <LoadingScreen />;
   }
 
-  if (productsData && productsData.data.length === 0) {
+  if (products && products.length === 0) {
     return null;
   }
 
@@ -83,7 +88,7 @@ export const ProductsList: React.FC<ProductsListProps> = ({ filterName }) => {
       numColumns={numCols}
       contentContainerStyle={styles.container}
       renderItem={renderItem}
-      data={productsData?.data}
+      data={products}
       keyExtractor={keyExtractor}
       columnWrapperStyle={columnWrapperStyle}
       refreshControl={
@@ -91,7 +96,7 @@ export const ProductsList: React.FC<ProductsListProps> = ({ filterName }) => {
           colors={[theme.colors.primary]}
           tintColor={theme.colors.primary}
           refreshing={isLoading}
-          onRefresh={refetch}
+          onRefresh={onRefresh}
         />
       }
     />

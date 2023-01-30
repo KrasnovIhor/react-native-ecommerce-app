@@ -1,127 +1,40 @@
 import { Button } from 'components/Button';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useStyles } from './ProfileScreen.styles';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { Input } from 'components/Input';
 import {
-  useCreateAccountAddressMutation,
-  useRetrieveAccountAddressesQuery,
-} from 'api/modules/user';
-import { CreateUserAddress } from 'types/user';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { RefreshControl, ScrollView } from 'react-native';
+  Image,
+  RefreshControl,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { LogoutModal } from 'components/LogoutModal';
 import { useModal } from 'hooks/useModal';
-
-type FormData = {
-  firstname: string;
-  lastname: string;
-  phone: string;
-  country_iso: string;
-  city: string;
-  zipcode: string;
-  address1: string;
-  address2: string;
-};
-
-const defaultValues: FormData = {
-  firstname: '',
-  lastname: '',
-  phone: '',
-  country_iso: '',
-  city: '',
-  zipcode: '',
-  address1: '',
-  address2: '',
-};
-
-const schema = yup
-  .object({
-    firstname: yup.string().required(),
-    lastname: yup.string().required(),
-    phone: yup.string().required(),
-    country_iso: yup.string().required(),
-    city: yup.string().required(),
-    zipcode: yup.string().required(),
-    address1: yup.string().required('Address is required'),
-    address2: yup.string().required('Address is required'),
-  })
-  .required();
+import { useAvatar, useProfileScreen } from './hooks';
+import { DefaultAvatar } from 'assets/icons';
 
 export const ProfileScreen = () => {
-  const styles = useStyles();
+  const { closeModal, isOpenModal, openModal } = useModal();
   const {
     control,
+    errors,
     handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<FormData>({
-    defaultValues,
-    resolver: yupResolver(schema),
-  });
-  const {
-    data: addresses,
+    isLoadingAddressesQuery,
+    isLoadingCreateAddress,
+    onSubmit,
+    styles,
     refetch,
-    isLoading: isLoadingAddressesQuery,
-  } = useRetrieveAccountAddressesQuery();
-  const [createAddress, { isLoading: isLoadingCreateAddress }] =
-    useCreateAccountAddressMutation();
-  const { closeModal, isOpenModal, openModal } = useModal();
+  } = useProfileScreen();
+  const { uri, setAvatar } = useAvatar();
 
-  const shouldCreateAddress = useMemo(
-    () => (addresses ? !addresses.data.length : false),
-    [addresses]
-  );
-
-  const updateInputFieldsValues = useCallback(
-    (fieldsArray: Array<keyof FormData>) => {
-      fieldsArray?.forEach(field => {
-        setValue(field, addresses?.data?.[0]?.attributes[field] || '');
-      });
-    },
-    [addresses?.data, setValue]
-  );
-
-  const onSubmit = useCallback(
-    async ({
-      firstname,
-      lastname,
-      address1,
-      address2,
-      phone,
-      country_iso,
-      city,
-      zipcode,
-    }: FormData) => {
-      const body: CreateUserAddress = {
-        address: {
-          firstname: firstname,
-          lastname: lastname,
-          address1,
-          address2,
-          phone,
-          country_iso: country_iso,
-          city,
-          zipcode,
-        },
-      };
-
-      if (shouldCreateAddress) {
-        const response = await createAddress(body);
-        console.log(response);
-        await refetch();
-      }
-    },
-    [createAddress, refetch, shouldCreateAddress]
-  );
-
-  useEffect(() => {
-    updateInputFieldsValues(
-      Object.keys(defaultValues) as Array<keyof FormData>
-    );
-  }, [updateInputFieldsValues]);
+  const profileAvatar = useMemo(() => {
+    if (uri) {
+      return <Image style={styles.avatarImage} source={{ uri }} />;
+    }
+    return <DefaultAvatar />;
+  }, [styles, uri]);
 
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
@@ -161,6 +74,11 @@ export const ProfileScreen = () => {
             />
           )}
         />
+        <View style={styles.avatar}>
+          <TouchableOpacity onPress={setAvatar}>
+            {profileAvatar}
+          </TouchableOpacity>
+        </View>
         <Controller
           name="phone"
           control={control}
