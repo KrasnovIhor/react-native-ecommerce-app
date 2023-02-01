@@ -28,11 +28,6 @@ export const ProductsList: React.FC<ProductsListProps> = ({
 }) => {
   const styles = useStyles();
   const theme = useTheme();
-  // const {
-  //   data: productsData,
-  //   refetch,
-  //   isLoading,
-  // } = useGetProductsQuery(filterName);
   const orientation = useOrientation();
   const numCols = orientation === 'PORTRAIT' ? 2 : 4;
   const columnWrapperStyle =
