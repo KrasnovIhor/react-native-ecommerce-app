@@ -26,11 +26,6 @@ export const useSearchScreen = () => {
 
   const onChangeText = useCallback((text: string) => {
     setSearchValue(text);
-    // setSearchHistoryList(
-    //   searchHistoryList.filter(searchItem =>
-    //     searchItem.toLocaleLowerCase().includes(text.toLocaleLowerCase())
-    //   )
-    // );
   }, []);
 
   useEffect(() => {

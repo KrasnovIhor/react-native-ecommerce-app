@@ -48,8 +48,6 @@ export const useSearchHistory = () => {
     try {
       const response = await AsyncStorage.getItem(SEARCH_HISTORY_LIST_KEY);
 
-      console.log('getSearchHistoryList: ', response);
-
       if (response) {
         const searchList: string[] = JSON.parse(response);
         setSearchHistoryList(searchList);
