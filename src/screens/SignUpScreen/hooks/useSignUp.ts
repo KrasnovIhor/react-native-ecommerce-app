@@ -1,11 +1,18 @@
-import { CreateUserRequest } from 'types/api';
 import { useCreateAccountMutation } from 'api/modules/user';
 import { useState, useCallback } from 'react';
 import { useStyles } from '../SignUpScreen.styles';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from 'navigation';
+import { prepareCreateUserPayload } from '../utils';
 
-const initialFormState = {
+export type FormValues = {
+  fullName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+const initialFormState: FormValues = {
   fullName: '',
   email: '',
   password: '',
@@ -15,7 +22,7 @@ const initialFormState = {
 export const useSignUp = () => {
   const styles = useStyles();
   const { navigate } = useNavigation();
-  const [formValues, setFormValues] = useState(initialFormState);
+  const [formValues, setFormValues] = useState<FormValues>(initialFormState);
   const [createAccountMutation, { isLoading, isError }] =
     useCreateAccountMutation();
 
@@ -39,22 +46,6 @@ export const useSignUp = () => {
     return result;
   }, [formValues]);
 
-  const prepareCreateUserPayload = useCallback((values: typeof formValues) => {
-    const [first_name, last_name] = values.fullName.split(' ');
-    const { email, password, confirmPassword: password_confirmation } = values;
-    const body: CreateUserRequest = {
-      user: {
-        email,
-        password,
-        first_name,
-        last_name: last_name ?? '',
-        password_confirmation,
-      },
-    };
-
-    return body;
-  }, []);
-
   const onSubmit = useCallback(async () => {
     if (checkFields()) {
       await createAccountMutation(prepareCreateUserPayload(formValues));
@@ -63,14 +54,7 @@ export const useSignUp = () => {
         navigate(Routes.LOGIN);
       }
     }
-  }, [
-    checkFields,
-    createAccountMutation,
-    formValues,
-    isError,
-    navigate,
-    prepareCreateUserPayload,
-  ]);
+  }, [checkFields, createAccountMutation, formValues, isError, navigate]);
 
   return {
     styles,

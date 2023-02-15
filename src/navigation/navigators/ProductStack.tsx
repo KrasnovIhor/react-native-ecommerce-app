@@ -8,6 +8,7 @@ import {
 import { MainScreen } from 'screens/MainScreen';
 import { ProductDetailsScreen } from 'screens/ProductDetailsScreen';
 import { useHeader, useProductModal } from 'navigation/hooks';
+import { SearchScreen } from 'screens/SearchScreen';
 
 const ProductStack = createNativeStackNavigator<ProductStackParamList>();
 
@@ -35,6 +36,11 @@ export const ProductScreenStack = () => {
           title: '',
           headerRight: headerRightProductDetails,
         }}
+      />
+      <ProductStack.Screen
+        name={Routes.SEARCH}
+        component={SearchScreen}
+        options={{ title: 'Search' }}
       />
       <ProductStack.Group
         screenOptions={{

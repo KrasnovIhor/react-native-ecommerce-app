@@ -145,12 +145,17 @@ export interface CartIncludedRelationships {
   images?: BillingAddress;
   option_values?: BillingAddress;
 }
-export interface CreateUserRequest {
-  user: {
-    email: string;
-    first_name: string;
-    last_name: string;
-    password: string;
-    password_confirmation: string;
-  };
+
+export interface Links {
+  self: string;
+  next: string;
+  prev: string;
+  last: string;
+  first: string;
+}
+
+export interface Meta {
+  count: number;
+  total_count: number;
+  total_pages: number;
 }

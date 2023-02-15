@@ -6,21 +6,28 @@ import { PRODUCTS_URL } from 'constants/api';
 
 export const productsApi = api.injectEndpoints({
   endpoints: build => ({
-    getProducts: build.query<StoreFrontResponse<Product[]>, void>({
-      query: () => ({
-        url: PRODUCTS_URL,
-        method: 'GET',
-      }),
-      transformResponse: (response: StoreFrontResponse<Product[]>) => {
-        const data = response.data;
-        const products = parseProducts(data);
-        return {
-          ...response,
-          data: products,
-        };
-      },
-      providesTags: ['Product'],
-    }),
+    getProducts: build.query<StoreFrontResponse<Product[]>, string | undefined>(
+      {
+        query: filterName => ({
+          url: PRODUCTS_URL,
+          method: 'GET',
+          params: filterName
+            ? {
+                'filter[name]': filterName,
+              }
+            : {},
+        }),
+        transformResponse: (response: StoreFrontResponse<Product[]>) => {
+          const data = response.data;
+          const products = parseProducts(data);
+          return {
+            ...response,
+            data: products,
+          };
+        },
+        providesTags: ['Product'],
+      }
+    ),
     getProductById: build.query<
       { data: Product; included: ProductVariant[] },
       string

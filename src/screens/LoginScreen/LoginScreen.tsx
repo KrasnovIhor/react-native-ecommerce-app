@@ -37,7 +37,6 @@ export const LoginScreen = () => {
 
   const animatedStyles = useAnimatedStyle(() => ({
     width: withTiming(buttonWidth.value),
-    // backgroundColor: withTiming(buttonColor.value),
   }));
 
   useEffect(() => {
@@ -45,7 +44,6 @@ export const LoginScreen = () => {
       buttonWidth.value = 30;
     }
     if (isError) {
-      // buttonColor.value = theme.colors.danger;
       buttonWidth.value = 100;
     }
   }, [buttonColor, buttonWidth, isError, isLoading]);
@@ -74,7 +72,6 @@ export const LoginScreen = () => {
         <Controller
           name="password"
           control={control}
-          rules={{}}
           render={({ field: { onChange, onBlur, value, name } }) => (
             <Input
               label="Password"

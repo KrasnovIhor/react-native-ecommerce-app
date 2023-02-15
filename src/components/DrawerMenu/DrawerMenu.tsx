@@ -9,6 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { DrawerMenuItem } from './components/DrawerMenuItem';
 import { DrawerMenuSection } from './components/DrawerMenuSection';
 import { useStyles } from './DrawerMenu.styles';
+import { ShareButton } from './components/ShareButton';
 
 type DrawerMenuProps = DrawerContentComponentProps;
 
@@ -36,9 +37,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = () => {
         </DrawerMenuSection>
         <Divider style={styles.divider} />
         <DrawerMenuSection containerStyle={styles.section}>
-          {MENU.footer.items.map(item => (
-            <DrawerMenuItem {...item} />
-          ))}
+          <ShareButton />
         </DrawerMenuSection>
       </ScrollView>
     </SafeAreaView>

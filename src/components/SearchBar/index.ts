@@ -1,1 +1,1 @@
-export { SearchBar } from './SearchBar';
+export { SearchBar, type RNEInputRef } from './SearchBar';
